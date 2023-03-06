@@ -1,6 +1,6 @@
-### Aula de React com TypeScript e Tests com Jest da Digital Inovation One
+### Aula de React com TypeScript e Testes com Jest da Digital Inovation One
 
-Desafio simples de criação de página e componentes no React com TypeScript  e implementação de testes unitários utilizando o Jest feito durante bootcamp de TypeScript da Digital Inovation One.
+Desafio simples de criação de página e componentes no React com TypeScript e implementação de testes unitários utilizando o Jest feito durante bootcamp de TypeScript da Digital Inovation One.
 
 #### Como rodar o projeto
 
