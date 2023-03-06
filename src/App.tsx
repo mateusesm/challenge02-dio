@@ -1,15 +1,16 @@
 import { ChakraProvider, Box} from '@chakra-ui/react'
 
-import { Header } from "./components/Header"
+import { Layout } from './components/Layout'
 import { Card } from "./components/Card"
 
 export function App() {
   return (
     <ChakraProvider>
-      <Box minHeight='100vh' backgroundColor='#2F74C0' padding='25px'>
-        <Header />
-        <Card />
-      </Box>  
+      <Layout>
+        <Box minHeight='100vh' backgroundColor='#2F74C0' padding='25px'>
+          <Card />
+        </Box> 
+      </Layout> 
     </ChakraProvider> 
   )
 }
