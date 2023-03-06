@@ -2,7 +2,7 @@ import { Heading } from '@chakra-ui/react'
 
 export const Header = () => {
   return (
-    <Heading as='h1'>
+    <Heading color='#fff' backgroundColor='#022449' as='h1'>
       <header>
         Dio Bank
       </header>

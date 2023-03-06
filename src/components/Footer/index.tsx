@@ -1,7 +1,11 @@
+import { Box } from '@chakra-ui/react'
+
 export const Footer = () => {
   return (
-    <footer>
-      Footer
-    </footer>
+    <Box color='#fff' backgroundColor='#022449'>
+      <footer>
+        Footer
+      </footer>
+    </Box> 
   )
 }
