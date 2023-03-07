@@ -1,9 +1,9 @@
 import { useContext } from 'react'
 import { Routes, Route } from 'react-router-dom'
 
-import { Home } from '../Pages/Home'
-import { Account } from '../Pages/Account'
-import { AccountInfo } from '../Pages/AccountInfo'
+import { Home } from '../pages/Home'
+import { Account } from '../pages/Account'
+import { AccountInfo } from '../pages/AccountInfo'
 import { AppContext } from '../components/AppContext'
 
 
