@@ -1,6 +1,8 @@
-import { useState, useEffect } from 'react'
-import { Center, SimpleGrid } from '@chakra-ui/react'
+import { useState, useEffect, useContext } from 'react'
+import { useParams, useNavigate } from 'react-router-dom'
+import { Center, SimpleGrid, Spinner } from '@chakra-ui/react'
 
+import { AppContext } from '../../components/AppContext'
 import { CardInfo } from '../../components/CardInfo'
 import { api } from '../../mockApi/api'
 
@@ -9,11 +11,14 @@ interface IUser {
   password: string
   name: string
   balance: number
+  id: string
 }
 
 export const Account = () => {
-
   const [userData, setUserData] = useState<null | IUser>(null)
+  const { id } = useParams()
+  const navigate = useNavigate()
+  const context = useContext(AppContext)
 
   useEffect(() => {
     const getData = async () => {
@@ -24,11 +29,26 @@ export const Account = () => {
     getData()
   }, [])
 
+  if (!context.isLoggedIn) {
+    navigate('/')
+  }
+
+  if (userData && id !== userData.id) {
+    navigate('/')
+  }
+
+  const actualDate = new Date().toLocaleString()
+
   return (
     <Center>
       <SimpleGrid columns={2} spacing={8} paddingTop={16}>
-        <CardInfo text='Informações de acesso' />
-        <CardInfo text='Informações da conta' />
+        {
+          !userData ? <Center><Spinner size='xl' color='#fff' /></Center> :
+          <>
+            <CardInfo mainContent={`Welcome ${userData?.name}`} content={`${actualDate}`}/>
+            <CardInfo mainContent='Balance' content={`${userData.balance.toLocaleString('pt-br')}`} />
+          </>
+        }
       </SimpleGrid>
     </Center>
   )
