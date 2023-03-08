@@ -16,7 +16,6 @@ npm i
 ```bash
 npm run dev
 ```
-
 #### Desafios
 [x] Crie os componentes referentes aos elementos na página inicial
   - Crie um componente para o header, com o título da aplicação
