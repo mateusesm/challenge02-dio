@@ -4,7 +4,7 @@ import { Center, SimpleGrid, Spinner } from '@chakra-ui/react'
 
 import { AppContext } from '../../components/AppContext'
 import { CardInfo } from '../../components/CardInfo'
-import { api } from '../../mockApi/api'
+import axios from '../../services/axios/axios'
 
 interface IUser {
   email: string
@@ -22,7 +22,7 @@ export const Account = () => {
 
   useEffect(() => {
     const getData = async () => {
-      const data: any | IUser = await api
+      const data: any = await axios.get('/user/1')
       setUserData(data)
     }
 

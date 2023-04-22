@@ -1,11 +1,19 @@
-import { api } from "../../mockApi/api"
+import axios from '../axios/axios'
 
 export const login = async (email: string, password: string): Promise<boolean> => {
-  const data: any = await api
+  const { data } = await axios({
+    method: 'post',
+    url: '/login',
+    data: {
+      email,
+      password
+    }
+  })
 
-  if (email !== data.email) {
+  if (!data.token) {
     return false
   }
 
+  axios.defaults.headers.authorization = `Bearer ${data.token}`
   return true
 }

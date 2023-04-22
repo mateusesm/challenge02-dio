@@ -13,7 +13,7 @@ export const Home = () => {
   const [email, setEmail] = useState<string>('')
   const [password, setPassword] = useState<string>('')
   const navigate = useNavigate()
-  const { isLoggedIn,setIsLoggedIn } = useContext(AppContext)
+  const { isLoggedIn, setIsLoggedIn } = useContext(AppContext)
 
   const hadleValidateUser = async (email: string, password: string) => {
     const loginResponse = await login(email, password)
@@ -41,7 +41,7 @@ export const Home = () => {
         <label htmlFor="idPassword">
           Senha
         </label>
-        <Input onChange={(event) => setPassword(event.target.value)} value={password} id="idPassword" placeholder="Your password" />
+        <Input type='password' onChange={(event) => setPassword(event.target.value)} value={password} id="idPassword" placeholder="Your password" />
 
         <FormButton handleClick={() => hadleValidateUser(email, password)} />
       </Card>
