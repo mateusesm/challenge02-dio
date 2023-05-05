@@ -8,7 +8,7 @@ import { AppContext } from '../components/AppContext'
 
 
 export const MainRoutes = () => {
-  const { isLoggedIn } = useContext(AppContext)
+  const { state: { isLoggedIn } } = useContext(AppContext)
 
   return (
     <Routes>

@@ -1,6 +1,6 @@
 import axios from '../axios/axios'
 
-export const login = async (email: string, password: string): Promise<boolean> => {
+export const login = async (email: string, password: string): Promise<boolean | object> => {
   try {
     const { data: { token, id } } = await axios({
       method: 'post',
@@ -16,10 +16,8 @@ export const login = async (email: string, password: string): Promise<boolean> =
     }
   
     axios.defaults.headers.authorization = `Bearer ${token}`
-  
-    console.log('EU SOU O ID',id)
     
-    return true
+    return { id, token }
   } catch (err: any) {
     console.log(err.message)
     return false

@@ -1,19 +1,13 @@
-interface IDioBank {
-  logged: boolean
-}
-
-const dioBank = {
-  logged: false
-}
+import { GlobalState } from '../../components/AppContext'
 
 export const getAllLocalStorage = (): string | null => {
   return localStorage.getItem('dioBank')
 }
 
-export const createLocalStorage = (): void => {
-  localStorage.setItem('dioBank', JSON.stringify(dioBank))
+export const createLocalStorage = (object: GlobalState): void => {
+  localStorage.setItem('dioBank', JSON.stringify(object))
 }
 
-export const changeLocalStorage = (object: IDioBank): void => {
+export const changeLocalStorage = (object: GlobalState): void => {
   localStorage.setItem('dioBank', JSON.stringify(object))
 }

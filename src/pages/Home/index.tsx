@@ -7,24 +7,23 @@ import { AppContext } from '../../components/AppContext'
 import { FormButton } from "../../components/FormButton"
 import { Card } from "../../components/Card"
 import { login } from '../../services/login'
-import { changeLocalStorage } from '../../services/storage'
 
 export const Home = () => {
   const [email, setEmail] = useState<string>('')
   const [password, setPassword] = useState<string>('')
+  const { state, dispatch } = useContext(AppContext)
+  
   const navigate = useNavigate()
-  const { isLoggedIn, setIsLoggedIn } = useContext(AppContext)
 
   const hadleValidateUser = async (email: string, password: string) => {
     const loginResponse = await login(email, password)
 
     if (!loginResponse) {
-      return alert('Invalid email')
+      return alert('Email or password invalids!')
     }
 
-    setIsLoggedIn(true)
-    changeLocalStorage({ logged: true })
-    navigate('/account/1')
+    dispatch({ type: 'LOGIN', payload: loginResponse })
+    navigate(`/account/${loginResponse.id}`)
   }
 
   return (

@@ -1,31 +1,37 @@
-import { createContext, useState, useEffect } from "react"
+import { createContext, useState, useEffect, useReducer } from "react"
 
-import { getAllLocalStorage } from "../../services/storage"
+import { getAllLocalStorage, changeLocalStorage } from "../../services/storage"
 
-interface IAppContext {
-  user: string,
+export interface GlobalState {
+  id: string,
+  token: string
   isLoggedIn: boolean,
-  setIsLoggedIn: (isLoggedIn: boolean) => void
 }
 
-export const AppContext = createContext({} as IAppContext)
+export const globalState: GlobalState = {
+  id: '',
+  token: '',
+  isLoggedIn: false
+}
+
+export const AppContext = createContext({})
+
+const reducer = (state: object, action: object) => {
+  switch (action.type) {
+    case 'LOGIN': {
+      changeLocalStorage({ ...state, id: action.payload.id, token: action.payload.token, isLoggedIn: true })
+      return { ...state, id: action.payload.id, token: action.payload.token, isLoggedIn: true }
+    }
+  }
+
+  return { ...state }
+}
 
 const AppContextProvider = ({children}: any) => {
-  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false)
-
-  const storage = getAllLocalStorage()
-
-  useEffect(() => {
-    if (storage) {
-      const { logged } = JSON.parse(storage)
-      setIsLoggedIn(logged)
-    }
-  }, [])
-
-  const user = 'Mateus'
+  const [state, dispatch] = useReducer(reducer, globalState)
 
   return (
-    <AppContext.Provider value={{ user, isLoggedIn, setIsLoggedIn }}>
+    <AppContext.Provider value={{ state, dispatch }}>
       {children}
     </AppContext.Provider>
   )

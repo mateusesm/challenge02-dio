@@ -7,7 +7,7 @@ import { CardInfo } from '../../components/CardInfo'
 import axios from '../../services/axios/axios'
 import { api } from '../../mockApi/api'
 
-interface IUser {
+interface User {
   id: string
   name: string
   email: string
@@ -15,21 +15,21 @@ interface IUser {
 }
 
 export const Account = () => {
-  const [userData, setUserData] = useState<null | IUser>(null)
+  const [userData, setUserData] = useState<null | User>(null)
   const { id } = useParams()
   const navigate = useNavigate()
-  const context = useContext(AppContext)
+  const { state: { isLoggedIn } } = useContext(AppContext)
 
   useEffect(() => {
     const getData = async () => {
-      const data: any = await api
+      const data: any = await axios(`/user/${id}`)
       setUserData(data)
     }
 
     getData()
   }, [])
 
-  if (!context.isLoggedIn) {
+  if (!isLoggedIn) {
     navigate('/')
   }
 
