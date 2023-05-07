@@ -1,6 +1,6 @@
 import { GlobalState } from '../../components/AppContext'
 
-export const getAllLocalStorage = (): string | null => {
+export const getAllLocalStorage = (): string | any => {
   return localStorage.getItem('dioBank')
 }
 

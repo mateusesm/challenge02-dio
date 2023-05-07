@@ -2,7 +2,7 @@ import axios from '../axios/axios'
 
 export const login = async (email: string, password: string): Promise<boolean | object> => {
   try {
-    const { data: { token, id } } = await axios({
+    const { data: { id, token } } = await axios({
       method: 'post',
       url: '/login',
       data: {

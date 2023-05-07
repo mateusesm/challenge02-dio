@@ -1,11 +1,11 @@
 import { Box, Text } from '@chakra-ui/react'
 
-interface ICardInfo {
+interface CardInfo {
   mainContent: string,
   content: string
 }
 
-export const CardInfo = ({ mainContent, content }: ICardInfo) => {
+export const CardInfo = ({ mainContent, content }: CardInfo) => {
   return (
     <Box
       as='h1'

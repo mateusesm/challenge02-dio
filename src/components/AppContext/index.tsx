@@ -1,6 +1,6 @@
-import { createContext, useState, useEffect, useReducer } from "react"
+import { createContext, useReducer } from "react"
 
-import { getAllLocalStorage, changeLocalStorage } from "../../services/storage"
+import { changeLocalStorage } from "../../services/storage"
 
 export interface GlobalState {
   id: string,
@@ -19,8 +19,14 @@ export const AppContext = createContext({})
 const reducer = (state: object, action: object) => {
   switch (action.type) {
     case 'LOGIN': {
-      changeLocalStorage({ ...state, id: action.payload.id, token: action.payload.token, isLoggedIn: true })
-      return { ...state, id: action.payload.id, token: action.payload.token, isLoggedIn: true }
+      const newState = { ...state, id: action.payload.id, token: action.payload.token, isLoggedIn: true }
+      changeLocalStorage(newState)
+      return newState
+    }
+    case 'LOGOUT': {
+      const newState = { id: '', token: '', isLoggedIn: false }
+      changeLocalStorage(newState)
+      return newState
     }
   }
 

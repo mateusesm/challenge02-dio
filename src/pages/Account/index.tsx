@@ -2,10 +2,9 @@ import { useState, useEffect, useContext } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { Center, SimpleGrid, Spinner } from '@chakra-ui/react'
 
-import { AppContext } from '../../components/AppContext'
 import { CardInfo } from '../../components/CardInfo'
 import axios from '../../services/axios/axios'
-import { api } from '../../mockApi/api'
+import { getAllLocalStorage } from '../../services/storage'
 
 interface User {
   id: string
@@ -15,25 +14,30 @@ interface User {
 }
 
 export const Account = () => {
-  const [userData, setUserData] = useState<null | User>(null)
+  const [userData, setUserData] = useState<User>({ id: '', name: '', email: '', balance: 0 })
   const { id } = useParams()
   const navigate = useNavigate()
-  const { state: { isLoggedIn } } = useContext(AppContext)
+  const { token, isLoggedIn } = JSON.parse(getAllLocalStorage())
 
   useEffect(() => {
     const getData = async () => {
-      const data: any = await axios(`/user/${id}`)
-      setUserData(data)
+      try {
+        const { data } = await axios(`/user/${id}`)
+        setUserData(data)
+  
+        if (id !== data.id) {
+          navigate('/')
+        }
+      } catch (err: any) {
+        console.log(err.response.data.message)
+      }
+     
     }
 
     getData()
-  }, [])
+  }, [id])
 
   if (!isLoggedIn) {
-    navigate('/')
-  }
-
-  if (userData && id !== userData.id) {
     navigate('/')
   }
 

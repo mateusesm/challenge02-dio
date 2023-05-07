@@ -4,15 +4,15 @@ import { useNavigate } from 'react-router-dom'
 import { Flex, Heading, Center, Spacer, Button } from '@chakra-ui/react'
 
 import { AppContext } from '../AppContext'
-import { changeLocalStorage } from '../../services/storage'
 
 export const Header = () => {
-  const { isLoggedIn, setIsLoggedIn } = useContext(AppContext)
+  const { state, dispatch } = useContext(AppContext)
   const navigate = useNavigate()
 
+  const { isLoggedIn } = state
+
   const logout = () => {
-    changeLocalStorage({ logged: false })
-    setIsLoggedIn(false)
+    dispatch({ type: 'LOGOUT' })
     navigate('/')
   }
 
