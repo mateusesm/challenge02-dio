@@ -1,7 +1,6 @@
 import { useState, useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Input, Box, Center, Heading } from '@chakra-ui/react'
-import { EmailIcon, LockIcon } from '@chakra-ui/icons'
 
 import { AppContext } from '../../components/AppContext'
 import { FormButton } from "../../components/FormButton"

@@ -4,13 +4,8 @@ import { ChakraProvider } from '@chakra-ui/react'
 import { MainRoutes } from './routes'
 import AppContextProvider, { globalState } from './components/AppContext'
 import { Layout } from './components/Layout'
-import { createLocalStorage, getAllLocalStorage } from './services/storage'
 
 export function App() {
-  if (!getAllLocalStorage()) {
-    createLocalStorage(globalState)
-  }
-
   return (
     <BrowserRouter>
       <AppContextProvider>

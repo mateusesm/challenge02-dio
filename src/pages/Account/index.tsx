@@ -3,8 +3,9 @@ import { useParams, useNavigate } from 'react-router-dom'
 import { Center, SimpleGrid, Spinner } from '@chakra-ui/react'
 
 import { CardInfo } from '../../components/CardInfo'
+import { AppContext } from '../../components/AppContext'
+
 import axios from '../../services/axios/axios'
-import { getAllLocalStorage } from '../../services/storage'
 
 interface User {
   id: string
@@ -17,7 +18,7 @@ export const Account = () => {
   const [userData, setUserData] = useState<User>({ id: '', name: '', email: '', balance: 0 })
   const { id } = useParams()
   const navigate = useNavigate()
-  const { token, isLoggedIn } = JSON.parse(getAllLocalStorage())
+  const { state: { token, isLoggedIn }, dispatch } = useContext(AppContext)
 
   useEffect(() => {
     const getData = async () => {

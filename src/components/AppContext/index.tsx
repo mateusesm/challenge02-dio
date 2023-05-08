@@ -1,6 +1,8 @@
-import { createContext, useReducer } from "react"
+import { createContext, useEffect, useReducer, useRef } from "react"
 
-import { changeLocalStorage } from "../../services/storage"
+import { changeLocalStorage, getAllLocalStorage, createLocalStorage } from "../../services/storage"
+
+import axios from '../../services/axios/axios'
 
 export interface GlobalState {
   id: string,
@@ -34,6 +36,21 @@ const reducer = (state: object, action: object) => {
 }
 
 const AppContextProvider = ({children}: any) => {
+  const storage = useRef(JSON.parse(getAllLocalStorage()))
+
+  useEffect(() => {
+    if (storage.current.isLoggedIn) {
+      globalState.id = storage.current.id
+      globalState.token = storage.current.token
+      globalState.isLoggedIn = storage.current.isLoggedIn
+  
+      axios.defaults.headers.authorization = `Bearer ${storage.current.token}`
+    } else {
+      createLocalStorage(globalState) 
+    }
+
+  }, [storage.current.isLoggedIn, globalState])
+
   const [state, dispatch] = useReducer(reducer, globalState)
 
   return (
