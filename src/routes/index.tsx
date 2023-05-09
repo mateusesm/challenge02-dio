@@ -8,7 +8,7 @@ import { AccountInfo } from '../pages/AccountInfo'
 import { AppContext } from '../components/AppContext'
 
 export const MainRoutes = () => {
-  const { state: token, isLoggedIn } = useContext(AppContext)
+  const { state: { token, isLoggedIn } } = useContext(AppContext)
   return (
     <Routes>
       <Route path="/" element={<Home />} />
@@ -17,7 +17,6 @@ export const MainRoutes = () => {
           isLoggedIn ? <Account /> : <Home />
         }
       />
-      
       <Route path="/informations" element={<AccountInfo />} />
     </Routes>
   ) 

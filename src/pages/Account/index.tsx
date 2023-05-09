@@ -29,6 +29,10 @@ export const Account = () => {
         if (id !== data.id) {
           navigate('/')
         }
+
+        if (!isLoggedIn) {
+          navigate('/')
+        }
       } catch (err: any) {
         console.log(err.response.data.message)
       }
@@ -36,11 +40,7 @@ export const Account = () => {
     }
 
     getData()
-  }, [id])
-
-  if (!isLoggedIn) {
-    navigate('/')
-  }
+  }, [id, isLoggedIn])
 
   const actualDate = new Date().toLocaleString()
 

@@ -4,7 +4,6 @@ import { useNavigate } from 'react-router-dom'
 import { Flex, Heading, Center, Spacer, Button } from '@chakra-ui/react'
 
 import { AppContext } from '../AppContext'
-import { getAllLocalStorage } from '../../services/storage'
 
 export const Header = () => {
   const { state: { isLoggedIn }, dispatch } = useContext(AppContext)

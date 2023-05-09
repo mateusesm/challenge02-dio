@@ -1,4 +1,4 @@
-import { useState, useContext } from 'react'
+import { useState, useContext, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Input, Box, Center, Heading } from '@chakra-ui/react'
 
@@ -10,9 +10,17 @@ import { login } from '../../services/login'
 export const Home = () => {
   const [email, setEmail] = useState<string>('')
   const [password, setPassword] = useState<string>('')
-  const { state, dispatch } = useContext(AppContext)
+  const { state: { id, isLoggedIn }, dispatch } = useContext(AppContext)
   
   const navigate = useNavigate()
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      navigate(`/account/${id}`)
+    } else {
+      navigate('/')
+    }
+  }, [isLoggedIn])
 
   const hadleValidateUser = async (email: string, password: string) => {
     const loginResponse = await login(email, password)
